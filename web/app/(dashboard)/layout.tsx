@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Sidebar from "@/components/navigation/Sidebar";
+import NoSSR from "@/components/core/NoSSR";
 
 export const metadata: Metadata = {
   title: "MEST Africa - BDT Dashboard",
@@ -13,7 +14,9 @@ export default function DashboardLayout({
 }>) {
   return (
     <div className="flex min-h-screen">
-      <Sidebar />
+      <NoSSR>
+        <Sidebar />
+      </NoSSR>
       {/* Main Content Area */}
       <main className="grow p-8 h-dvh overflow-y-scroll">
         {children}

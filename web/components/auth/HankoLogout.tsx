@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Hanko } from "@teamhanko/hanko-elements";
 import Button from "../core/Button";
 
-const hankoApi = process.env.NEXT_PUBLIC_HANKO_API_URL || '';
+const hankoApi = process.env.NEXT_PUBLIC_HANKO_API_URL || "";
 const hanko = new Hanko(hankoApi);
 
 export default function HankoLogout() {
@@ -26,5 +26,9 @@ export default function HankoLogout() {
     }
   };
 
-  return <Button onClick={logout} isLoading={loading}>Log Out</Button>;
+  return (
+    <Button onClick={logout} isLoading={loading}>
+      Log Out
+    </Button>
+  );
 }

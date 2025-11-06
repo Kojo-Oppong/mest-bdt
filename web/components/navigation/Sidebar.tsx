@@ -1,9 +1,9 @@
-'use client';
+"use client";
 // src/components/Sidebar.tsx
-import React, { useState } from 'react';
-import { Menu, X, LayoutDashboard, Group, User } from 'lucide-react'; // Using Lucide Icons for simplicity
-import Link from 'next/link';
-import HankoLogout from '../auth/HankoLogout';
+import React, { useState } from "react";
+import { Menu, X, LayoutDashboard, Group, User } from "lucide-react"; // Using Lucide Icons for simplicity
+import Link from "next/link";
+import HankoLogout from "../auth/HankoLogout";
 
 // Define the type for a sidebar link item
 interface SidebarItem {
@@ -13,9 +13,9 @@ interface SidebarItem {
 }
 
 const sidebarItems: SidebarItem[] = [
-  { name: 'Dashboard', icon: LayoutDashboard, href: '/' },
-  { name: 'Programs', icon: Group, href: '/programs' },
-  { name: 'Profile', icon: User, href: '/profile' },
+  { name: "Dashboard", icon: LayoutDashboard, href: "/" },
+  { name: "Programs", icon: Group, href: "/programs" },
+  { name: "Profile", icon: User, href: "/profile" },
 ];
 
 const Sidebar: React.FC = () => {
@@ -42,14 +42,16 @@ const Sidebar: React.FC = () => {
           fixed top-0 left-0 h-full w-64 bg-gray-800 text-white z-40
           transform transition-transform duration-300 ease-in-out
           lg:translate-x-0 lg:static lg:h-auto lg:w-64 lg:shadow-xl
-          ${isOpen ? 'translate-x-0 shadow-xl' : '-translate-x-full'}
+          ${isOpen ? "translate-x-0 shadow-xl" : "-translate-x-full"}
         `}
       >
         <div className="p-4 flex flex-col h-full justify-between">
           <div>
             {/* Sidebar Header/Logo */}
             <div className="mb-8 flex items-center justify-between lg:justify-start">
-              <h1 className="text-2xl font-bold text-indigo-400">MEST Africa - BDT</h1>
+              <h1 className="text-2xl font-bold text-indigo-400">
+                MEST Africa - BDT
+              </h1>
               {/* Close button for mobile (optional, but good for clarity) */}
               <button
                 className="p-1 rounded lg:hidden text-gray-400 hover:text-white"
@@ -69,7 +71,10 @@ const Sidebar: React.FC = () => {
                     key={item.href}
                     href={item.href}
                     className="flex items-center space-x-3 p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out"
-                    onClick={/* Close sidebar on item click for mobile */ () => setIsOpen(false)}
+                    onClick={
+                      /* Close sidebar on item click for mobile */ () =>
+                        setIsOpen(false)
+                    }
                   >
                     <Icon size={20} />
                     <span className="text-base font-medium">{item.name}</span>

@@ -12,7 +12,7 @@ export class HankoUser {
   iss: string;
   session_id: string;
   sub: string;
-};
+}
 
 export const CurrentUser = createParamDecorator(
   (data: unknown, context: ExecutionContext) => {

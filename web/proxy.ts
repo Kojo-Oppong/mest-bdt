@@ -16,7 +16,10 @@ export function proxy(req: NextRequest) {
     return NextResponse.next();
   } catch (error) {
     // If there's any error (e.g., no hanko cookie, invalid token), redirect to the login page.
-    console.log("Authentication or profile check failed:", JSON.stringify(error));
+    console.log(
+      "Authentication or profile check failed:",
+      JSON.stringify(error),
+    );
     return NextResponse.redirect(new URL("/login", req.url));
   }
 }
@@ -24,6 +27,6 @@ export function proxy(req: NextRequest) {
 export const config = {
   matcher: [
     /* Apply proxy to all pages except API routes, static assets, and specific excluded pages. */
-    '/((?!api|assets|_next/static|_next/image|favicon.ico).*)',
+    "/((?!api|assets|_next/static|_next/image|favicon.ico).*)",
   ],
 };

@@ -8,7 +8,8 @@ import {
   Delete,
   Query,
   ConflictException,
-  UseGuards
+  UseGuards,
+  NotFoundException,
 } from '@nestjs/common';
 import { ProfilesService } from './profiles.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
@@ -18,16 +19,15 @@ import { AuthGuard } from '../common/guards/auth.guard';
 
 @Controller('profiles')
 export class ProfilesController {
-  constructor(private readonly profilesService: ProfilesService) { }
+  constructor(private readonly profilesService: ProfilesService) {}
 
   @Post()
   async create(@Body() createProfileDto: CreateProfileDto) {
     // Ensure profile with email does not exist
-    const profile = await this.profilesService.findOne({
+    const count = await this.profilesService.countDocuments({
       email: createProfileDto.email,
     });
-    if (profile)
-      throw new ConflictException('Profile with email already exist!');
+    if (count) throw new ConflictException('Profile with email already exist!');
     // Proceed to create new profile
     return this.profilesService.create(createProfileDto);
   }
@@ -39,7 +39,14 @@ export class ProfilesController {
 
   @Get('me')
   @UseGuards(AuthGuard)
-  findCurrentUser(@CurrentUser() user: HankoUser) {
+  async findCurrentUser(@CurrentUser() user: HankoUser) {
+    // Ensure profile with email exist
+    const count = await this.profilesService.countDocuments({
+      email: user.email.address,
+    });
+    if (!count)
+      throw new NotFoundException('Profile with email does not exist!');
+    // Proceed to create new profile
     return this.profilesService.findOne({ email: user.email.address });
   }
 

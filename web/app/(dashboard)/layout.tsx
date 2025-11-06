@@ -18,9 +18,7 @@ export default function DashboardLayout({
         <Sidebar />
       </NoSSR>
       {/* Main Content Area */}
-      <main className="grow p-8 h-dvh overflow-y-scroll">
-        {children}
-      </main>
+      <main className="grow p-8 h-dvh overflow-y-scroll">{children}</main>
     </div>
   );
 }

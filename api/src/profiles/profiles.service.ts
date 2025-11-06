@@ -13,6 +13,10 @@ export class ProfilesService {
     return this.profileModel.insertOne(doc);
   }
 
+  countDocuments(filter: RootFilterQuery<Profile>) {
+    return this.profileModel.countDocuments(filter);
+  }
+
   findAll(filter: RootFilterQuery<Profile>) {
     return this.profileModel.find(filter);
   }

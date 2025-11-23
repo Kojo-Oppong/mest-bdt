@@ -1,182 +1,223 @@
-import { Eye, Search } from "lucide-react";
-import Link from "next/link";
 import Image from "next/image";
+import { Search, Eye, Edit, Plus } from "lucide-react";
+import Link from "next/link";
 
 export default function Cohorts() {
   return (
-    <>
-
-      <div className=" bg-gray-200 p-8 rounded-md text-black">
-
-        {/* Page Header + Search + Add Button */}
-        <div className="w-full mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-
-          {/* Left: Header Title */}
-          <h1 className="text-2xl font-bold text-white-800">Cohort Details</h1>
-
-          {/* Right: Search + Add Button Group */}
-          <div className="flex items-center gap-4 w-full sm:w-auto">
-
-            {/* Search Bar */}
-            <div className="relative w-full sm:w-64">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
-              <input
-                type="text"
-                placeholder="Search cohorts..."
-                className="w-full pl-10 pr-4 py-2 rounded-md bg-white text-gray-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+    <div className="p-2 sm:p-4 bg-[#0B0C10] min-h-screen">
+      {/* Header / Metrics */}
+      <header className="mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-semibold text-slate-100">Cohorts</h1>
+            <p className="text-sm text-slate-400">
+              List of Cohorts enrolled across our edTech offerings
+            </p>
+          </div>
+          <div className="flex gap-2 sm:gap-4 flex-wrap">
+            <div className="bg-[#0f1724] px-4 py-2 rounded-md border border-slate-800 text-sm min-w-[120px]">
+              <div className="text-xs text-slate-400">Total cohorts</div>
+              <div className="text-lg font-medium text-white">3</div>
             </div>
-
-            {/* Add Cohort Button */}
-            <Link
-              href="/cohorts/add"
-              className="bg-blue-600 whitespace-nowrap text-white px-4 py-2 rounded-md hover:bg-blue-700 transition font-medium"
-            >
-              Add Cohort
+            <div className="bg-[#0f1724] px-4 py-3 rounded-md border border-slate-800 text-sm min-w-[120px]">
+              <div className="text-xs text-slate-400">Active</div>
+              <div className="text-lg font-medium text-white">2</div>
+            </div>
+            {/* Add New Cohort Button */}
+            <Link href="/cohorts/add">
+              <button className="flex items-center gap-2 bg-[#0F1724] hover:bg-blue-600 text-white px-4 py-2 rounded-md font-medium text-sm transition-colors cursor-pointer">
+                <Plus className="h-4 w-4" />
+                Add New Cohort
+              </button>
             </Link>
-
           </div>
         </div>
-
-        {/* Cohort Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 w-full mb-6">
-
-          {/*Card 1 */}
-          <div className="border border-blue-200 rounded-lg overflow-hidden bg-white shadow-md">
-            <div className="relative w-full h-64">
-              <Image
-                src="https://i.pinimg.com/1200x/40/6d/46/406d46cfab7c97768870aaf287d89b5b.jpg"
-                alt="Cohort 1"
-                width={500}
-                height={500}
-                className="object-cover w-full h-full rounded-md"
-              />
-
-              {/* Icons */}
-              <div className="absolute top-2 right-2 flex space-x-4">
-                <Link
-                  href="/cohorts/view?id=1"
-                  className="p-2 bg-white/30 rounded-md backdrop-blur-sm  hover:scale-110 transition"
-                >
-                  <Eye className="h-6 w-6 text-[#432DD7]" />
-                </Link>
-              </div>
-            </div>
-
-            <div className="p-4">
-              <h3 className="text-lg font-semibold text-gray-800">Cohort 1</h3>
-              <p className="text-gray-600 text-sm mt-1 leading-relaxed">
-                Our EdTech Teacher Empowerment program is designed to help educators seamlessly integrate technology into their classrooms. Participants learn to use digital tools for lesson planning, assessment, and student engagement.
-              </p>
-              <button className="text-blue-600 cursor-pointer text-sm underline mt-2 hover:text-blue-800">
-                Read more
-              </button>
-            </div>
+      </header>
+      {/* Filter Bar and Sorting cards */}
+      <div className="mb-6 bg-[#0b1220] p-3 sm:p-4 rounded-md border border-slate-800 flex flex-col lg:flex-row lg:items-center gap-3">
+        <label className="flex items-center gap-2 flex-1">
+          <span className="sr-only">Search cohorts</span>
+          <div className="flex items-center gap-2 px-3 py-2 bg-[#0f1724] rounded-md border border-slate-800 w-full">
+            <Search className="h-4 w-4 text-slate-400" />
+            <input
+              placeholder="Search by title or tag"
+              className="bg-transparent outline-none text-slate-200 placeholder:text-slate-500 w-full text-sm"
+            />
           </div>
-
-          {/* Card 2 */}
-          <div className="border border-blue-200 rounded-lg overflow-hidden bg-white shadow-md">
-            <div className="relative w-full h-64">
-              <Image
-                src="https://i.pinimg.com/736x/9c/b1/44/9cb14497febb1e5f84a64b707e994b7e.jpg"
-                alt="Cohort 1"
-                width={500}
-                height={500}
-                className="object-cover w-full h-full rounded-md"
-              />
-
-              {/* Icons */}
-              <div className="absolute top-2 right-2 flex space-x-4">
-                <Link
-                  href="/cohorts/view?id=1"
-                  className="p-2 bg-white/30 rounded-md backdrop-blur-sm  hover:scale-110 transition"
-                >
-                  <Eye className="h-6 w-6 text-[#432DD7]" />
-                </Link>
-              </div>
-            </div>
-
-            <div className="p-4">
-              <h3 className="text-lg font-semibold text-gray-800">Cohort 2</h3>
-              <p className="text-gray-600 text-sm mt-1 leading-relaxed">
-                The Coding for Kids initiative introduces children to programming through hands-on activities and games. Young learners explore basic coding concepts using visual languages and block-based platforms. The program encourages creativity, logical thinking, and teamwork as students build simple apps and animations.
-              </p>
-              <button className="text-blue-600 text-sm underline mt-2 hover:text-blue-800">
-                Read more
-              </button>
-            </div>
+        </label>
+        <div className="flex items-center gap-2 flex-wrap">
+          <div className="text-sm text-slate-400">Status</div>
+          <div className="flex gap-2 flex-wrap">
+            <button className="px-3 py-1 rounded-md text-sm border bg-slate-700 text-white border-slate-600 cursor-pointer">
+              All
+            </button>
+            <button className="px-3 py-1 rounded-md text-sm border bg-transparent text-slate-300 border-slate-800 cursor-pointer">
+              Active
+            </button>
+            <button className="px-3 py-1 rounded-md text-sm border bg-transparent text-slate-300 border-slate-800 cursor-pointer">
+              Ongoing
+            </button>
+            <button className="px-3 py-1 rounded-md text-sm border bg-transparent text-slate-300 border-slate-800 cursor-pointer">
+              Completed
+            </button>
           </div>
-
-          {/* Card 3 */}
-          <div className="border border-blue-200 rounded-lg overflow-hidden bg-white shadow-md">
-            <div className="relative w-full h-64  overflow-hidden">
-              <Image
-                src="https://i.pinimg.com/736x/36/c9/9b/36c99b445865431cefaa51e7b91ffc99.jpg"
-                alt="Cohort 1"
-                width={500}
-                height={500}
-                className="object-cover rounded-md h-full w-full"
-              />
-
-              {/* Icons */}
-              <div className="absolute top-2 right-2 flex space-x-4">
-                <Link
-                  href="/cohorts/view?id=1"
-                  className="p-2 bg-white/30 rounded-md backdrop-blur-sm  hover:scale-110 transition"
-                >
-                  <Eye className="h-6 w-6 text-[#432DD7]" />
-                </Link>
-              </div>
-            </div>
-
-            <div className="p-4">
-              <h3 className="text-lg font-semibold text-gray-800">Cohort 3</h3>
-              <p className="text-gray-600 text-sm mt-1 leading-relaxed">
-                Our Online Learning Platform offers flexible, self-paced courses in mathematics, science, and digital literacy. Students access interactive lessons, video tutorials, and quizzes from any device, making learning accessible and convenient.
-              </p>
-              <button className="text-blue-600 text-sm underline mt-2 hover:text-blue-800">
-                Read more
-              </button>
-            </div>
-          </div>
-
-          {/* Card 4 */}
-          <div className="border border-blue-200 rounded-lg overflow-hidden bg-white shadow-md">
-            <div className="relative w-full h-64">
-              <Image
-                src="https://i.pinimg.com/736x/49/f9/65/49f9657b4889e617d16138e05c121d95.jpg"
-                alt="Cohort 1"
-                width={500}
-                height={500}
-                className="object-cover rounded-md w-full h-full"
-              />
-
-              {/* Icons */}
-              <div className="absolute top-2 right-2 flex space-x-4">
-                <Link
-                  href="/cohorts/view?id=1"
-                  className="p-2 bg-white/30 rounded-md backdrop-blur-sm  hover:scale-110 transition"
-                >
-                  <Eye className="h-6 w-6 text-[#432DD7]" />
-                </Link>
-              </div>
-            </div>
-
-            <div className="p-4">
-              <h3 className="text-lg font-semibold text-gray-800">Cohort 4</h3>
-              <p className="text-gray-600 text-sm mt-1 leading-relaxed">
-                The Teacher Training Bootcamp is a comprehensive program focused on modern pedagogical strategies and digital literacy. Educators participate in workshops on blended learning, classroom management, and data-driven instruction. The bootcamp..
-              </p>
-              <button className="text-blue-600 text-sm underline mt-2 hover:text-blue-800">
-                Read more
-              </button>
-            </div>
-          </div>
-
+        </div>
+        <div className="lg:ml-auto flex items-center gap-2">
+          <label className="text-sm text-slate-400">Sort</label>
+          <select
+            className="px-3 py-2 text-sm rounded-md bg-[#0f1724] border border-slate-800"
+          >
+            <option>Start date (newest)</option>
+            <option>Start date (oldest)</option>
+            <option>Name (A → Z)</option>
+          </select>
         </div>
       </div>
-
-
-    </>
+      {/* Grid */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Card 1 */}
+        <div className="bg-[#0b1220] rounded-md overflow-hidden border border-slate-800 shadow-sm mb-8 flex flex-col">
+          <div className="relative h-48 w-full bg-slate-900 transform transition-transform duration-300 hover:scale-110 ">
+            <Image
+              src="https://i.pinimg.com/736x/49/f9/65/49f9657b4889e617d16138e05c121d95.jpg"
+              alt="Full-Stack Web Dev — Cohort 14 cover"
+              fill
+              sizes="(max-width: 640px) 100vw, 33vw"
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+          <div className="p-4 flex flex-col flex-1">
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <h2 className="text-slate-100 font-medium">
+                  Full-Stack Web Dev - Cohort 1
+                </h2>
+                <p className="text-sm text-slate-400 mt-1">
+                  Full-Stack Web Development. Intensive 6-month program covering HTML, CSS, JS, React, Node and deployment.
+                </p>
+              </div>
+            </div>
+            <div className="mt-3 flex flex-col xs:flex-row items-start xs:items-center justify-between gap-2">
+              <div className="flex gap-2 flex-wrap">
+                <span className="text-xs px-2 py-1 rounded-md border bg-green-800/30 border-green-700 text-green-200">
+                  Active
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+               <Link href={"/cohorts/view"}>
+               <button className="px-2 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-100 text-sm flex items-center gap-2 w-full xs:w-auto cursor-pointer">
+                  <Eye className="h-4 w-4" /> View
+                </button>
+               </Link> 
+                <Link href={"/cohorts/edit"}>
+                 <button className="px-2 py-1 rounded-md border border-slate-700 text-sm flex items-center gap-2 w-full xs:w-auto cursor-pointer">
+                  <Edit className="h-4 w-4" /> Edit
+                </button>
+                </Link>
+               
+              </div>
+            </div>
+            <div className="mt-3 text-xs text-slate-400">
+              <div>Start: Sep 1, 2025</div>
+              <div>End: Feb 28, 2026</div>
+            </div>
+          </div>
+        </div>
+        {/* Card 2 */}
+        <div className="bg-[#0b1220] rounded-md overflow-hidden border border-slate-800 shadow-sm mb-8 flex flex-col">
+          <div className="relative h-48 w-full bg-slate-900 transform transition-transform duration-300 hover:scale-110 ">
+            <Image
+              src="https://i.pinimg.com/736x/ff/ad/d0/ffadd05c91a3025f9bad3895f090ecce.jpg"
+              alt="Full-Stack Web Dev — Cohort 14 cover"
+              fill
+              sizes="(max-width: 640px) 100vw, 33vw"
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+          <div className="p-4 flex flex-col flex-1">
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <h2 className="text-slate-100 font-medium">
+                  AI Fundamentals [ AI & Machine Learning ] - Cohort 2
+                </h2>
+                <p className="text-sm text-slate-400 mt-1">
+                  Introductory program focused on machine learning fundamentals and Python.
+                </p>
+              </div>
+            </div>
+            <div className="mt-3 flex flex-col xs:flex-row items-start xs:items-center justify-between gap-2">
+              <div className="flex gap-2 flex-wrap">
+                <span className="text-xs px-2 py-1 rounded-md border bg-green-800/30 border-green-700 text-green-200">
+                  Active
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Link href={"/cohorts/view"}>
+                <button className="px-2 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-100 text-sm flex items-center gap-2 w-full xs:w-auto cursor-pointer">
+                  <Eye className="h-4 w-4" /> View
+                </button>
+                </Link>
+                <Link href={"/cohorts/edit"}>
+                <button className="px-2 py-1 rounded-md border border-slate-700 text-sm flex items-center gap-2 w-full xs:w-auto cursor-pointer">
+                  <Edit className="h-4 w-4" /> Edit
+                </button>
+                </Link>
+              </div>
+            </div>
+            <div className="mt-3 text-xs text-slate-400">
+              <div>Start: Jan 1, 2026</div>
+              <div>End: Feb 28, 2026</div>
+            </div>
+          </div>
+        </div>
+        {/* Card 3 */}
+        <div className="bg-[#0b1220] rounded-md overflow-hidden border border-slate-800 shadow-sm mb-8 flex flex-col">
+          <div className="relative h-48 w-full bg-slate-900 transform transition-transform duration-300 hover:scale-110 ">
+            <Image
+              src="https://i.pinimg.com/736x/c7/3a/19/c73a19e2e58b089ea1736bddfe3d7ccc.jpg"
+              alt="Full-Stack Web Dev — Cohort 14 cover"
+              fill
+              sizes="(max-width: 640px) 100vw, 33vw"
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+          <div className="p-4 flex flex-col flex-1">
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <h2 className="text-slate-100 font-medium">
+                  Product Design - Cohort 3
+                </h2>
+                <p className="text-sm text-slate-400 mt-1">
+                  Hands-on course teaching research, prototyping and visual design.
+                </p>
+              </div>
+            </div>
+            <div className="mt-3 flex flex-col xs:flex-row items-start xs:items-center justify-between gap-2">
+              <div className="flex gap-2 flex-wrap">
+                <span className="text-xs px-2 py-1 rounded-md border bg-yellow-800/70 border--700 text-yellow-200">
+                  Ongoing
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Link href={"/cohorts/view"}>
+                 <button className="px-2 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-100 text-sm flex items-center gap-2 w-full xs:w-auto cursor-pointer">
+                  <Eye className="h-4 w-4" /> View
+                </button>
+                </Link>
+               <Link href={"/cohorts/edit"}>
+                <button className="px-2 py-1 rounded-md border border-slate-700 text-sm flex items-center gap-2 w-full xs:w-auto cursor-pointer">
+                  <Edit className="h-4 w-4" /> Edit
+                </button>
+               </Link>
+              </div>
+            </div>
+            <div className="mt-3 text-xs text-slate-400">
+              <div>Start: Sep 1, 2025</div>
+              <div>End: Feb 28, 2026</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

@@ -1,11 +1,10 @@
 "use client";
-import { Search, Eye, Edit, Plus } from "lucide-react";
+import { Search, Plus } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 export default function CohortsHeader() {
   const searchParams = useSearchParams();
-
   return (
     <div className="p-2 sm:p-4 bg-[#0B1220] rounded-md">
       <header className="mb-4">
@@ -28,13 +27,13 @@ export default function CohortsHeader() {
         </div>
       </header>
       {/* Filter Bar and Sorting cards */}
-      <div className="mb-6 bg-[#0b1220] p-3 sm:p-4 rounded-md border border-slate-800 flex flex-col lg:flex-row lg:items-center gap-3">
+      <div className=" bg-[#0b1220] p-2 sm:p-4 rounded-md border border-slate-800 flex flex-col lg:flex-row lg:items-center gap-3">
         <label className="flex items-center gap-2 flex-1">
           <span className="sr-only">Search cohorts</span>
           <div className="flex items-center gap-2 px-3 py-2 bg-[#0f1724] rounded-md border border-slate-800 w-full">
             <Search className="h-4 w-4 text-slate-400" />
             <input
-              placeholder="Search by title or tag"
+              placeholder="Search by cohort name"
               className="bg-transparent outline-none text-slate-200 placeholder:text-slate-500 w-full text-sm"
             />
           </div>

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ResponsesService } from './responses.service';
 import { CreateResponseDto } from './dto/create-response.dto';
@@ -16,30 +17,35 @@ export class ResponsesController {
   constructor(private readonly responsesService: ResponsesService) {}
 
   @Post()
-  create(@Body() createResponseDto: CreateResponseDto) {
+  async create(@Body() createResponseDto: CreateResponseDto) {
     return this.responsesService.create(createResponseDto);
   }
 
   @Get()
-  findAll() {
-    return this.responsesService.findAll();
+  async findAll(@Query() { filter = '{}' }: { filter: string }) {
+    return this.responsesService.findAll(JSON.parse(filter) as object);
+  }
+
+  @Get('count')
+  countDocuments(@Query() { filter = '{}' }: { filter: string }) {
+    return this.responsesService.countDocuments(JSON.parse(filter) as object);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.responsesService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return this.responsesService.findOne({ _id: id });
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateResponseDto: UpdateResponseDto,
   ) {
-    return this.responsesService.update(+id, updateResponseDto);
+    return this.responsesService.updateOne({ _id: id }, updateResponseDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.responsesService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return this.responsesService.deleteOne({ _id: id });
   }
 }

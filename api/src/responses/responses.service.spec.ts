@@ -1,12 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ResponsesService } from './responses.service';
+import { getModelToken } from '@nestjs/mongoose';
+import { Response } from './schemas/response.schema';
+import { mockModel } from '../common/mocks/model';
 
 describe('ResponsesService', () => {
   let service: ResponsesService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ResponsesService],
+      providers: [
+        ResponsesService,
+        {
+          provide: getModelToken(Response.name),
+          useValue: mockModel,
+        },
+      ],
     }).compile();
 
     service = module.get<ResponsesService>(ResponsesService);

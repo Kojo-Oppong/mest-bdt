@@ -1,28 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import { CreateResponseDto } from './dto/create-response.dto';
-import { UpdateResponseDto } from './dto/update-response.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model, AnyKeys, QueryFilter, UpdateQuery } from 'mongoose';
+import { Response } from './schemas/response.schema';
 
 @Injectable()
 export class ResponsesService {
-  create(createResponseDto: CreateResponseDto) {
-    console.log(createResponseDto);
-    return 'This action adds a new response';
+  constructor(
+    @InjectModel(Response.name) private responseModel: Model<Response>,
+  ) {}
+
+  create(doc: AnyKeys<Response>) {
+    return this.responseModel.insertOne(doc);
   }
 
-  findAll() {
-    return `This action returns all responses`;
+  countDocuments(filter: QueryFilter<Response>) {
+    return this.responseModel.countDocuments(filter);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} response`;
+  findAll(filter: QueryFilter<Response>) {
+    return this.responseModel.find(filter);
   }
 
-  update(id: number, updateResponseDto: UpdateResponseDto) {
-    console.log(updateResponseDto);
-    return `This action updates a #${id} response`;
+  findOne(filter: QueryFilter<Response>) {
+    return this.responseModel.findOne(filter);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} response`;
+  updateOne(filter: QueryFilter<Response>, update: UpdateQuery<Response>) {
+    return this.responseModel.updateOne(filter, update);
+  }
+
+  deleteOne(filter: QueryFilter<Response>) {
+    return this.responseModel.deleteOne(filter);
   }
 }

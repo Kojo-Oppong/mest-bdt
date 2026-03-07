@@ -1,36 +1,32 @@
-import { Building2, Users, Calendars, IdCardLanyard } from "lucide-react";
+import { Building2, Users, Award, TrendingUp } from "lucide-react";
 
 export default function CompanyStats() {
+  const stats = [
+    { label: "Sector", value: "Technology", icon: Building2 },
+    { label: "Company Size", value: "250+ Employees", icon: Award },
+    { label: "Operational", value: "8 Years", icon: TrendingUp },
+    { label: "Total Users", value: "12 Members", icon: Users },
+  ];
+
   return (
-    <div className="flex flex-col md:flex-row justify-between gap-2 items-center">
-      <div className="bg-white shadow-lg text-sm px-6 py-4 rounded-2xl border border-gray-300  w-full">
-        <h2 className=" mb-10 text-gray-950 font-bold">Sector</h2>
-        <span className="flex items-center gap-2">
-          <Building2 size={20} />
-          <p>Technology</p>
-        </span>
-      </div>
-      <div className="bg-white shadow-lg text-sm px-6 py-4 rounded-2xl border border-gray-300   w-full">
-        <h2 className="mb-10 text-gray-950 font-bold">Company size</h2>
-        <span className="flex items-center gap-2">
-          <IdCardLanyard size={20} />
-          <p>250 employees</p>
-        </span>
-      </div>
-      <div className="bg-white shadow-lg px-6 text-sm  py-4 rounded-2xl border border-gray-300   w-full">
-        <h2 className="mb-10 text-gray-950  font-bold">Operational years</h2>
-        <span className="flex items-center gap-2">
-          <Calendars size={20} />
-          <p>8 years</p>
-        </span>
-      </div>
-      <div className="bg-white shadow-lg text-sm px-6 py-4 rounded-2xl border border-gray-300  w-full">
-        <h2 className="mb-10 text-gray-950 font-bold">Total Users</h2>
-        <span className="flex items-center gap-2">
-          <Users size={20} />
-          <p>5 users</p>
-        </span>
-      </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {stats.map((stat) => (
+        <div key={stat.label} className="card-meltwater p-6 group">
+          <div className="flex items-center justify-between mb-4">
+            <div className="p-2.5 bg-primary/10 rounded-xl group-hover:bg-primary/20 transition-colors">
+              <stat.icon className="w-5 h-5 text-primary" />
+            </div>
+          </div>
+          <div>
+            <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest mb-1">
+              {stat.label}
+            </p>
+            <h3 className="text-xl font-bold text-foreground tracking-tight">
+              {stat.value}
+            </h3>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

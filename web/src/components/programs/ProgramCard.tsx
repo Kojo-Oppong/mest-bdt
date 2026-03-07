@@ -1,5 +1,6 @@
+"use client";
 import { Program } from "@/utils/types";
-import { Eye, Boxes, Calendar } from "lucide-react";
+import { Eye, Boxes, Calendar, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,50 +10,59 @@ export interface ProgramCardProps {
 
 export default function ProgramCard({ program }: ProgramCardProps) {
   return (
-    <div className=" relative rounded-lg shadow-md space-y-2 bg-white ">
-      <div className="relative w-full h-48  overflow-hidden">
+    <div className="card-meltwater overflow-hidden group flex flex-col h-full">
+      <div className="relative h-48 w-full bg-foreground/5 overflow-hidden">
         <Image
           src={program?.image || "https://placehold.co/600x400.png"}
-          alt="image complete"
+          alt={program.name}
           fill
-          quality={100}
-          style={{ objectFit: "cover" }}
-          className="rounded-t-lg"
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
         />
-      </div>
-      <div className="flex mt-4 items-center justify-between">
-        {/*Action tags  */}
-        <p className="bg-blue-100 absolute top-2 left-2 text-blue-900 px-2 py-1 rounded-full text-xs">
-          upcoming{" "}
-        </p>
-        <div className=" absolute top-2  right-2 flex items-center gap-3">
-          <Link href={`/programs/view?id=${program.id}`}>
-            <Eye className="w-8 h-8 text-gray-600 bg-white p-1.5 rounded-full hover:text-blue-500 cursor-pointer transition" />
-          </Link>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+          <span className="text-white text-xs font-bold uppercase tracking-widest flex items-center gap-1">
+            View Details <ChevronRight size={14} />
+          </span>
         </div>
       </div>
 
-      {/* Program Details */}
-      <div className=" flex flex-col p-3  ">
-        <h2 className=" font-semibold ">{program.name}</h2>
-        <p className="text-gray-700 text-base mt-2  leading-relaxed">
+      <div className="p-6 flex flex-col flex-1">
+        <div className="mb-4">
+          <span className="bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-md">
+            Active Program
+          </span>
+        </div>
+
+        <h2 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-1">
+          {program.name}
+        </h2>
+        <p className="text-sm text-foreground/50 line-clamp-3 mb-6 font-medium leading-relaxed">
           {program.description}
         </p>
-        <div>
-          <div className="space-y-2 mt-2 text-sm text-gray-600">
-            <div className="flex items-center gap-2">
-              <Boxes className="w-4 h-4" />
-              <p> 24 Cohorts</p>
+
+        <div className="mt-auto space-y-3 pt-6 border-t border-border">
+          <div className="flex items-center justify-between text-xs font-bold">
+            <div className="flex items-center gap-2 text-foreground/40">
+              <Boxes size={14} className="text-primary" />
+              <span>Cohorts</span>
             </div>
+            <span className="text-foreground">24 Active</span>
           </div>
-          <div className="flex items-center gap-2 mt-2 mb-4">
-            <Calendar className="w-4 h-4 text-gray-500" />
-            <p className="text-gray-600 text-sm">
-              {new Date(program.startDate).toDateString()} -{" "}
-              {new Date(program.endDate).toDateString()}
-            </p>
+          <div className="flex items-center justify-between text-xs font-bold">
+            <div className="flex items-center gap-2 text-foreground/40">
+              <Calendar size={14} className="text-primary" />
+              <span>Timeline</span>
+            </div>
+            <span className="text-foreground">
+              {new Date(program.startDate).getFullYear()}
+            </span>
           </div>
         </div>
+
+        <Link href={`/programs/view?id=${program.id}`} className="mt-6">
+          <button className="w-full py-2.5 rounded-xl bg-foreground/5 hover:bg-primary hover:text-white text-foreground text-sm font-bold transition-all duration-300 flex items-center justify-center gap-2">
+            <Eye size={16} /> View Program
+          </button>
+        </Link>
       </div>
     </div>
   );

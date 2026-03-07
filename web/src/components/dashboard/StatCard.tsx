@@ -1,13 +1,13 @@
-// src/components/dashboard/StatCard.tsx
+"use client";
 import React from "react";
-import { LucideProps } from "lucide-react";
+import { TrendingUp, TrendingDown, LucideIcon } from "lucide-react";
 
 interface StatCardProps {
   title: string;
-  value: string;
+  value: string | number;
   change: string;
-  changeType: "increase" | "decrease" | "pending";
-  icon: React.ComponentType<LucideProps>;
+  changeType: "increase" | "decrease";
+  icon: LucideIcon;
 }
 
 const StatCard: React.FC<StatCardProps> = ({
@@ -17,23 +17,32 @@ const StatCard: React.FC<StatCardProps> = ({
   changeType,
   icon: Icon,
 }) => {
-  const changeColor = {
-    increase: "text-green-600 dark:text-green-400",
-    decrease: "text-red-600 dark:text-red-400",
-    pending: "text-yellow-600 dark:text-yellow-400",
-  }[changeType];
+  const isIncrease = changeType === "increase";
 
   return (
-    <div className="p-4 bg-white dark:bg-[#1a1d24] rounded-2xl shadow-lg flex items-center justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-      <div>
-        <p className="text-sm text-gray-500 dark:text-gray-400">{title}</p>
-        <p className="text-2xl font-bold text-gray-900 dark:text-white">
-          {value}
-        </p>
-        <p className={`text-sm mt-1 ${changeColor}`}>{change}</p>
+    <div className="card-meltwater p-6 group">
+      <div className="flex items-center justify-between mb-4">
+        <div className="p-2.5 bg-primary/10 rounded-xl group-hover:bg-primary/20 transition-colors">
+          <Icon className="w-5 h-5 text-primary" />
+        </div>
+        <div
+          className={`flex items-center gap-1 text-xs font-bold px-2 py-1 rounded-lg ${
+            isIncrease
+              ? "text-emerald-600 bg-emerald-500/10 dark:text-emerald-400"
+              : "text-rose-600 bg-rose-500/10 dark:text-rose-400"
+          }`}
+        >
+          {isIncrease ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
+          {change}
+        </div>
       </div>
-      <div className="p-3 bg-indigo-100 dark:bg-indigo-900/50 rounded-full">
-        <Icon className="w-6 h-6 text-indigo-500 dark:text-indigo-400" />
+      <div>
+        <p className="text-sm font-bold text-foreground/50 uppercase tracking-wider mb-1">
+          {title}
+        </p>
+        <h3 className="text-3xl font-bold text-foreground tracking-tight">
+          {value}
+        </h3>
       </div>
     </div>
   );

@@ -23,3 +23,43 @@ export type Company = {
   name: string;
   image: string;
 };
+
+export type Form = {
+  id: string;
+  name: string;
+  description: string;
+  schema: string;
+  uiSchema: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type Profile = {
+  id: string;
+  email: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type User = {
+  id: string;
+  company: string;
+  email: string;
+  name?: string;
+  phone?: string;
+  location?: string;
+  avatar?: string;
+  bio?: string;
+  access: "READ" | "WRITE";
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type Response = {
+  id: string;
+  form: string;
+  company: string;
+  data: string;
+  createdAt?: string;
+  updatedAt?: string;
+};

@@ -3,6 +3,7 @@ import { apiFetcher } from "@/utils/api";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
+import { Calendar, Building2, Info, Loader2, Clock } from "lucide-react";
 
 export default function CohortDetail() {
   const searchParams = useSearchParams();
@@ -13,90 +14,154 @@ export default function CohortDetail() {
 
   if (isLoading) {
     return (
-      <section>
-        <p>Loading cohort detail...</p>
-      </section>
+      <div className="min-h-[400px] flex flex-col items-center justify-center gap-4 card-meltwater bg-foreground/[0.02]">
+        <Loader2 className="h-10 w-10 text-primary animate-spin" />
+        <p className="text-foreground/40 font-bold uppercase tracking-widest text-xs">
+          Loading Cohort details...
+        </p>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <section>
-        <p>An unexpected error occured...</p>
-      </section>
+      <div className="min-h-[400px] flex flex-col items-center justify-center gap-4 card-meltwater border-rose-500/20 bg-rose-500/5">
+        <p className="text-rose-500 font-bold">Failed to load cohort</p>
+      </div>
     );
   }
 
   return (
-    <>
-      {/* Image Section */}
-      <div className="relative mb-10 h-[400px]">
-        <Image
-          src={data.image || "https://placehold.co/600x400.png"}
-          alt="Cohort Image"
-          fill
-          quality={100}
-          className="rounded-2xl object-cover shadow-md"
-        />
-        <p className="absolute top-5 left-5 bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">
-          Active
-        </p>
-      </div>
-
-      {/* Summary Section */}
-      <div className="bg-white dark:bg-[#1a1d24] p-6 rounded-2xl shadow-md mb-10">
-        <h2 className="text-lg font-semibold mb-5 text-gray-800 dark:text-gray-200">
-          Summary Information
-        </h2>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-5 text-sm">
-          <div>
-            <p className="text-gray-500 dark:text-gray-400">Cohort Name</p>
-            <p className="font-semibold">{data.name}</p>
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {/* Main Content */}
+      <div className="lg:col-span-2 space-y-8">
+        {/* Banner */}
+        <div className="relative h-64 md:h-96 w-full rounded-2xl overflow-hidden shadow-2xl shadow-primary/5">
+          <Image
+            src={data.image || "https://placehold.co/1200x800.png"}
+            alt={data.name}
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8">
+            <div>
+              <span className="bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3 inline-block">
+                Active Cohort
+              </span>
+              <h2 className="text-3xl font-bold text-white tracking-tight">
+                {data.name}
+              </h2>
+            </div>
           </div>
+        </div>
 
-          <div>
-            <p className="text-gray-500 dark:text-gray-400">Program</p>
-            <p className="font-semibold">Tech for Growth</p>
+        {/* Description Section */}
+        <div className="card-meltwater p-8">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
+              <Info size={20} className="text-primary" />
+            </div>
+            <h3 className="text-xl font-bold text-foreground tracking-tight">
+              Cohort Overview
+            </h3>
           </div>
-
-          <div>
-            <p className="text-gray-500 dark:text-gray-400">Start Date</p>
-            <p className="font-semibold">
-              {new Date(data.startDate).toDateString()}
-            </p>
-          </div>
-
-          <div>
-            <p className="text-gray-500 dark:text-gray-400">End Date</p>
-            <p className="font-semibold">
-              {new Date(data.endDate).toDateString()}
-            </p>
-          </div>
-
-          <div>
-            <p className="text-gray-500 dark:text-gray-400">Status</p>
-            <p className="font-semibold text-green-600 dark:text-green-400">
-              Active
-            </p>
-          </div>
-
-          <div>
-            <p className="text-gray-500 dark:text-gray-400">Total Companies</p>
-            <p className="font-semibold">25</p>
-          </div>
+          <p className="text-foreground/70 leading-relaxed font-medium whitespace-pre-wrap">
+            {data.description || "No description provided for this cohort."}
+          </p>
         </div>
       </div>
 
-      {/* Description Section */}
-      <div className="bg-white dark:bg-[#1a1d24] p-6 rounded-2xl shadow-md">
-        <h2 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">
-          Description
-        </h2>
-        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-          {data.description}
-        </p>
+      {/* Sidebar Info */}
+      <div className="space-y-8">
+        <div className="card-meltwater p-8">
+          <h3 className="text-lg font-bold text-foreground mb-8 tracking-tight">
+            Timeline & Outreach
+          </h3>
+          <div className="space-y-6">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 bg-foreground/5 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Calendar size={18} className="text-primary" />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest mb-1">
+                  Start Date
+                </p>
+                <p className="text-sm font-bold text-foreground">
+                  {new Date(data.startDate).toLocaleDateString(undefined, {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 bg-foreground/5 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Clock size={18} className="text-primary" />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest mb-1">
+                  End Date
+                </p>
+                <p className="text-sm font-bold text-foreground">
+                  {new Date(data.endDate).toLocaleDateString(undefined, {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 bg-foreground/5 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Building2 size={18} className="text-primary" />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest mb-1">
+                  Affiliated Companies
+                </p>
+                <p className="text-sm font-bold text-foreground">
+                  25 Participating
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="card-meltwater p-8">
+          <h3 className="text-lg font-bold text-foreground mb-6 tracking-tight">
+            Administrative
+          </h3>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between py-2 border-b border-border">
+              <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">
+                Parent Program
+              </span>
+              <span className="text-xs font-extrabold text-foreground">
+                Tech for Growth
+              </span>
+            </div>
+            <div className="flex items-center justify-between py-2 border-b border-border">
+              <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">
+                Capacity
+              </span>
+              <span className="text-xs font-extrabold text-foreground">
+                50 Seats
+              </span>
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">
+                Mode
+              </span>
+              <span className="text-xs font-extrabold text-foreground">
+                Hybrid
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   );
 }

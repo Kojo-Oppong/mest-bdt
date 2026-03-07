@@ -1,4 +1,3 @@
-// src/components/dashboard/PerformanceChart.tsx
 "use client";
 import React from "react";
 import {
@@ -6,50 +5,76 @@ import {
   Bar,
   XAxis,
   YAxis,
+  CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  CartesianGrid,
 } from "recharts";
+import { useTheme } from "next-themes";
 
 const data = [
-  { name: "Jan", value: 100 },
-  { name: "Feb", value: 140 },
-  { name: "Mar", value: 120 },
-  { name: "Apr", value: 80 },
-  { name: "May", value: 130 },
+  { name: "P1", score: 85 },
+  { name: "P2", score: 72 },
+  { name: "P3", score: 91 },
+  { name: "P4", score: 68 },
+  { name: "P5", score: 88 },
+  { name: "P6", score: 79 },
 ];
 
 const PerformanceChart = () => {
+  const { theme } = useTheme();
+
   return (
-    <section className="p-6 bg-white dark:bg-[#1a1d24] rounded-2xl shadow-lg h-full">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-          Program Performance
-        </h2>
-        <button className="text-sm bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition">
-          View Report
-        </button>
-      </div>
-      <div className="h-64">
+    <div className="card-meltwater p-8">
+      <h3 className="text-lg font-bold text-foreground mb-8 tracking-tight">
+        Program Performance
+      </h3>
+      <div className="h-[300px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data}>
             <CartesianGrid
               strokeDasharray="3 3"
-              stroke="rgba(255, 255, 255, 0.1)"
+              stroke={theme === "dark" ? "#1e293b" : "#e2e8f0"}
+              vertical={false}
             />
-            <XAxis dataKey="name" stroke="#a0aec0" />
-            <YAxis stroke="#a0aec0" />
+            <XAxis
+              dataKey="name"
+              stroke={theme === "dark" ? "#94a3b8" : "#64748b"}
+              fontSize={12}
+              fontWeight={600}
+              tickLine={false}
+              axisLine={false}
+              dy={10}
+            />
+            <YAxis
+              stroke={theme === "dark" ? "#94a3b8" : "#64748b"}
+              fontSize={12}
+              fontWeight={600}
+              tickLine={false}
+              axisLine={false}
+            />
             <Tooltip
               contentStyle={{
-                backgroundColor: "#1a1d24",
-                borderColor: "#4a5568",
+                backgroundColor: theme === "dark" ? "#0f1724" : "#ffffff",
+                border:
+                  "1px solid " + (theme === "dark" ? "#1e293b" : "#e2e8f0"),
+                borderRadius: "12px",
+                boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
               }}
+              itemStyle={{
+                color: theme === "dark" ? "#f8fafc" : "#1d2128",
+              }}
+              cursor={{ fill: "transparent" }}
             />
-            <Bar dataKey="value" fill="#8884d8" />
+            <Bar
+              dataKey="score"
+              fill="#00c1b4"
+              radius={[6, 6, 0, 0]}
+              barSize={32}
+            />
           </BarChart>
         </ResponsiveContainer>
       </div>
-    </section>
+    </div>
   );
 };
 

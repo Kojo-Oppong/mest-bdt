@@ -1,6 +1,13 @@
+"use client";
 import { Company } from "@/utils/types";
-import { Users, Dot, Calendar } from "lucide-react";
-import Image from "next/image";
+import {
+  Users,
+  Calendar,
+  Eye,
+  Building2,
+  Dot,
+  ArrowUpRight,
+} from "lucide-react";
 import Link from "next/link";
 
 export interface CompanyCardProps {
@@ -9,66 +16,79 @@ export interface CompanyCardProps {
 
 export default function CompanyCard({ company }: CompanyCardProps) {
   return (
-    <div className=" relative rounded-lg shadow-md space-y-2 bg-white border border-transparent hover:border-blue-400  hover:shadow-lg ">
-      {/* Card Image */}
-      <div className="relative w-full h-48  overflow-hidden">
-        <Image
-          src={"https://placehold.co/600x400.png"}
-          alt="image complete"
-          fill
-          quality={100}
-          style={{ objectFit: "cover" }}
-          className="rounded-t-lg transform transition-transform duration-300 hover:scale-110 "
-        />
-      </div>
-
-      {/* Company Details */}
-      <div className="  flex flex-col p-3  ">
-        <div className="flex justify-between">
-          <Link
-            href={`/companies/view?id=${company.id}`}
-            className="text-gray-800 text-sm md:text-sm hover:text-blue-700 "
-          >
-            {company.name}
-          </Link>
-          <p className="bg-gray-200 flex items-center text-black px-2 py-1 rounded-full text-xs">
-            completed{" "}
-          </p>
+    <div className="card-meltwater overflow-hidden group flex flex-col h-full hover:border-primary/30 transition-all duration-300">
+      <div className="relative h-32 w-full bg-foreground/5 overflow-hidden">
+        <div className="absolute inset-0 bg-primary/5 flex items-center justify-center">
+          <Building2 size={48} className="text-primary/10" />
         </div>
-        <div className=" mt-1.5 flex items-center text-xs md:text-sm text-gray-700">
-          <p>Venture Captial </p>
-          <span className="flex items-center ml-2">
-            <Dot /> 85 employees
+        <div className="absolute top-4 right-4">
+          <span className="bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-md backdrop-blur-sm border border-primary/20">
+            Partner
           </span>
         </div>
       </div>
 
-      {/* Details */}
-      <div className="space-y-2 mt-4 text-xs md:text-sm text-gray-600 px-4">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <Users size={16} />
-            <p>Participants: 6</p>
+      <div className="p-6 flex flex-col flex-1">
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <h2 className="text-xl font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
+              {company.name}
+            </h2>
+            <div className="flex items-center text-[11px] font-bold text-foreground/40 uppercase tracking-wider">
+              <span>Tech Startup</span>
+              <Dot size={16} />
+              <span>Accra, Ghana</span>
+            </div>
           </div>
+          <Link
+            href={`/companies/view?id=${company.id}`}
+            className="p-2 rounded-lg bg-foreground/5 hover:bg-primary hover:text-white transition-all"
+          >
+            <ArrowUpRight size={18} />
+          </Link>
         </div>
-        <div className="flex text-xs md:text-sm items-center gap-2">
-          <div className="flex items-center gap-2">
-            <Calendar size={16} />
-            <p>Onboarded:</p>
-          </div>
-          <p>Aug 15, 2024</p>
-        </div>
-      </div>
 
-      {/* Progress bar */}
-      <div className="bg-white rounded-lg w-full md:w-72 mt-2 md:block p-4">
-        <div className="flex justify-between">
-          <p className="text-sm mb-1 text-gray-600">Completion</p>
-          <p className="text-sm mb-1">100%</p>
+        <div className="grid grid-cols-2 gap-3 mb-6">
+          <div className="flex flex-col gap-1 p-3 rounded-xl bg-foreground/[0.03] border border-border/50">
+            <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">
+              Team Size
+            </span>
+            <div className="flex items-center gap-1.5 text-xs font-bold text-foreground">
+              <Users size={12} className="text-primary" />
+              <span>12 Members</span>
+            </div>
+          </div>
+          <div className="flex flex-col gap-1 p-3 rounded-xl bg-foreground/[0.03] border border-border/50">
+            <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">
+              Joined
+            </span>
+            <div className="flex items-center gap-1.5 text-xs font-bold text-foreground">
+              <Calendar size={12} className="text-primary" />
+              <span>Aug 2024</span>
+            </div>
+          </div>
         </div>
-        <div className="w-full h-2 bg-gray-400 rounded-full">
-          <div className="w-4/4 h-full  bg-black rounded-full"></div>
+
+        <div className="space-y-2 mb-6">
+          <div className="flex justify-between items-center">
+            <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">
+              Onboarding Progress
+            </span>
+            <span className="text-[10px] font-bold text-primary">85%</span>
+          </div>
+          <div className="h-1.5 w-full bg-foreground/5 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-primary rounded-full"
+              style={{ width: "85%" }}
+            ></div>
+          </div>
         </div>
+
+        <Link href={`/companies/view?id=${company.id}`} className="mt-auto">
+          <button className="w-full py-2.5 rounded-xl bg-foreground/5 hover:bg-primary hover:text-white text-foreground text-sm font-bold transition-all duration-300 flex items-center justify-center gap-2">
+            <Eye size={16} /> View Company
+          </button>
+        </Link>
       </div>
     </div>
   );
